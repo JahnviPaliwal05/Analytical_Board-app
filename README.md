@@ -26,7 +26,7 @@ Deployment: Streamlit Cloud
 ## Screenshots
 
 ### Dashboard Analytics
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](<img width="1916" height="853" alt="Image" src="https://github.com/user-attachments/assets/2d41496b-ad64-4012-9cb4-8a9cca3a4687" />)
 
 ### Admin Permission Panel
 ![Admin Panel](screenshots/admin_panel.png)
