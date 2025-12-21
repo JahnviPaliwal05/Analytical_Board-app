@@ -254,22 +254,24 @@ def user_dashboard(products):
     conn = get_connection()
     cur = conn.cursor()
     selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary=0
+    
     categories = cur.execute(
         "SELECT category FROM permissions WHERE username=?",
         (username,)
     ).fetchall()
-
+    bool = 'True'
     categories = [c[0] for c in categories]
 
     if not categories:
         st.warning("Admin has not given access yet")
-        return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary
+        bool = 'False'
+        return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary,bool
 
     category = st.selectbox("Select Category", categories)
 
     selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary=show_category_report(products, category)
-
-    return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary
+    bool = 'True'
+    return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary,bool
 
 def show_history():
     conn = get_connection()
@@ -411,7 +413,9 @@ def main():
         admin_dashboard(products)
     else:
         if option == "Dashboard":
-            selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary = user_dashboard(products)
+            selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary,bool = user_dashboard(products)
+            if bool == 'False':
+                break
             if st.button("Save Report"):
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                 username = st.session_state["username"]
@@ -455,6 +459,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
