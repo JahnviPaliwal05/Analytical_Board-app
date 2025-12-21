@@ -265,13 +265,13 @@ def user_dashboard(products):
     if not categories:
         st.warning("Admin has not given access yet")
         bool = 'False'
-        return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary,bool
+        return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary
 
     category = st.selectbox("Select Category", categories)
 
     selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary=show_category_report(products, category)
-    bool = 'True'
-    return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary,bool
+    
+    return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary
 
 def show_history():
     conn = get_connection()
@@ -413,37 +413,37 @@ def main():
         admin_dashboard(products)
     else:
         if option == "Dashboard":
-            selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary,bool = user_dashboard(products)
-            if bool == 'False':
-                break
-            if st.button("Save Report"):
-                timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-                username = st.session_state["username"]
-                report_name = f"{username}-{selected_category}-{timestamp}"
-
-                pdf_file, pdf_bytes = save_category_report_pdf(
-                    report_name=report_name,
-                    category=selected_category,
-                    short_df=short_df,
-                    nps=nps,
-                    best=best,
-                    worst=worst,
-                    fig_curve=fig_curve,
-                    fig_pie=fig_pie,
-                    summary=summary
-                )
-
-                # Save to database
-                conn = get_connection()
-                cur = conn.cursor()
-                cur.execute("""
-                    INSERT INTO report_history1 (username, category, report_name, pdf_data)
-                    VALUES (?, ?, ?, ?)
-                """, (username, selected_category, report_name, pdf_bytes))
-                conn.commit()
-                conn.close()
-
-                st.success(f"Report '{report_name}' saved!")
+            selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary = user_dashboard(products)
+            nums = [selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary]
+            if nums != [0,0,0,0,0,0,0,0]:
+                if st.button("Save Report"):
+                    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                    username = st.session_state["username"]
+                    report_name = f"{username}-{selected_category}-{timestamp}"
+    
+                    pdf_file, pdf_bytes = save_category_report_pdf(
+                        report_name=report_name,
+                        category=selected_category,
+                        short_df=short_df,
+                        nps=nps,
+                        best=best,
+                        worst=worst,
+                        fig_curve=fig_curve,
+                        fig_pie=fig_pie,
+                        summary=summary
+                    )
+    
+                    # Save to database
+                    conn = get_connection()
+                    cur = conn.cursor()
+                    cur.execute("""
+                        INSERT INTO report_history1 (username, category, report_name, pdf_data)
+                        VALUES (?, ?, ?, ?)
+                    """, (username, selected_category, report_name, pdf_bytes))
+                    conn.commit()
+                    conn.close()
+    
+                    st.success(f"Report '{report_name}' saved!")
 
         elif option == "Chatbot":
             chatbot_section(products,)
