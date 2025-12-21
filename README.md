@@ -24,15 +24,12 @@ Deployment: Streamlit Cloud
 **Python 3.11+**
 
 ## Screenshots
-
 ### Dashboard Analytics
-![Dashboard](<img width="1916" height="853" alt="Image" src="https://github.com/user-attachments/assets/2d41496b-ad64-4012-9cb4-8a9cca3a4687" />)
+<img width="1916" height="853" alt="Image" src="https://github.com/user-attachments/assets/e858da09-80e0-40f5-8612-d5c21693f38a" />
 
-### Admin Permission Panel
-![Admin Panel](screenshots/admin_panel.png)
 
 ### Downloaded PDF Report
-![PDF Report](screenshots/sample_report.png)
+<img width="554" height="693" alt="Image" src="https://github.com/user-attachments/assets/66fcabf3-caea-4fa4-86ed-5fbb9dd5e223" />
 
 
 ## Room for Improvement
