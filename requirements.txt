@@ -8,5 +8,6 @@ openai
 textblob
 kaleido
 fpdf 
-google-chrome-stable
+
+
 
