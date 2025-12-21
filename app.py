@@ -253,7 +253,7 @@ def user_dashboard(products):
     username = st.session_state["username"]
     conn = get_connection()
     cur = conn.cursor()
-
+    selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary=0
     categories = cur.execute(
         "SELECT category FROM permissions WHERE username=?",
         (username,)
@@ -263,7 +263,7 @@ def user_dashboard(products):
 
     if not categories:
         st.warning("Admin has not given access yet")
-        return []
+        return selected_category,short_df,nps,best,worst,fig_curve,fig_pie,summary
 
     category = st.selectbox("Select Category", categories)
 
@@ -455,5 +455,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
