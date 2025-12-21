@@ -263,7 +263,7 @@ def user_dashboard(products):
 
     if not categories:
         st.warning("Admin has not given access yet")
-        return
+        return []
 
     category = st.selectbox("Select Category", categories)
 
@@ -455,4 +455,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
