@@ -14,7 +14,7 @@ A Streamlit-powered analytics dashboard that transforms product review data into
 
 ## Technology Stack
 - Frontend: Streamlit 1.28+
-= Backend: SQLite3 (BLOB storage)
+- Backend: SQLite3 (BLOB storage)
 - Analytics: Pandas 2.0+, Plotly 5.15+, TextBlob
 - PDF: FPDF2 2.7.5+, Kaleido 0.2.1+
 - Deployment: Streamlit Cloud
