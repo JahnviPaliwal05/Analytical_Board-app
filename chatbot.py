@@ -53,12 +53,11 @@ def best_worst_products(dfp, category, top_n=1):
         .head(top_n)
     )
     if set(best['name'].tolist()) & set(worst['name'].tolist()):
-        # Get top_n + 1 worst, then skip the first one (which overlaps)
         next_worst = (
             short_df.sort_values("count_rating_1", ascending=False)
             .head(top_n + 1)
-            .iloc[1:]  # Skip the first row (the overlapping one)
-            .head(top_n)  # Take top_n from remaining
+            .iloc[1:]  
+            .head(top_n) 
         )
         worst = next_worst
 
@@ -129,10 +128,6 @@ def satisfaction_curve(df, category):
     return fig
 
 
-# -----------------------------
-# OPTIONAL: CATEGORY SUMMARY
-# (FOR CHATBOT CONTEXT)
-# -----------------------------
 def category_context_summary(short_df, category):
     df = short_df.copy()
     df.columns = df.columns.str.strip().str.lower()
@@ -146,3 +141,4 @@ def category_context_summary(short_df, category):
         )
 
     return "\n".join(summary)
+
